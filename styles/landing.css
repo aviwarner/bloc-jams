@@ -35,12 +35,12 @@
   -webkit-transform: scale(1.2) translateY(-2rem);
   -moz-transform: scale(1.2) translateY(-2rem);
   transform: scale(1.2) translateY(-2rem);
-  -webkit-transition: all 0.30s ease-in;
-  -moz-transition: all 0.30s ease-in;
-  transition: all 0.30s ease-in;
-  -webkit-transition-delay: 0.2s;
-  -moz-transition-delay: 0.2s;
-  transition-delay: 0.2s;
+  -webkit-transition: all 0.25s ease-in;
+  -moz-transition: all 0.25s ease-in;
+  transition: all 0.25s ease-in;
+  -webkit-transition-delay: 0.1s;
+  -moz-transition-delay: 0.1s;
+  transition-delay: 0.1s;
 }
 
 .point .point-title {
