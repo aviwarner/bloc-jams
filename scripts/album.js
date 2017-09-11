@@ -82,4 +82,40 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
   setCurrentAlbum(albumPinback);
+
+  var albumImageTwo = document.getElementsByClassName("album-cover-art")[0];
+
+  albumImageTwo.addEventListener('click',nextAlbum);
+
+  var i = 0;
+
+  function nextAlbum() {
+    var albumList = [albumPinback, albumPicasso, albumMarconi];
+    if (i === albumList.length - 1) {
+      setCurrentAlbum(albumList[0]);
+      i = 0;
+    } else {
+      i++;
+      setCurrentAlbum(albumList[i]);
+    }
+  };
+
+  /* 'official solution'
+
+  var albumList = [albumPinback, albumPicasso, albumMarconi];
+  var i = 1;
+  albumImageTwo.addEventListener(click, function(event) {
+    setCurrentAlbum(albumList[i]);
+    i++;
+    if (i == albumList.length) {
+      i = 0;
+    }
+  });
+  */
 };
+
+/* Assignment 11 steps
+1) Create array including all album names
+2) add onClick listener to the album images
+3) have listener call function setCurrentAlbum using next value in the array
+*/
