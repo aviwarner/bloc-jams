@@ -66,6 +66,7 @@ var setCurrentAlbum = function(album) {
   var albumImage = document.getElementsByClassName('album-cover-art')[0];
   var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
   var albumNumberTracks = document.getElementsByClassName('album-view-number-tracks')[0];
+  var albumDuration = document.getElementsByClassName('album-view-total-duration')[0];
 
   albumTitle.firstChild.nodeValue = album.title;
   albumArtist.firstChild.nodeValue = album.artist;
@@ -75,9 +76,24 @@ var setCurrentAlbum = function(album) {
 
   albumSongList.innerHTML = '';
 
+  var totalSongMinutes = 0;
+  var totalSongSeconds = 0;
+
   for (var i = 0; i < album.songs.length; i++) {
     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+
+    var splitSongDuration = album.songs[i].duration.split(':');
+    totalSongMinutes += parseInt(splitSongDuration[0]);
+    totalSongSeconds += parseInt(splitSongDuration[1]);
+    console.log(splitSongDuration);
   }
+
+totalSongMinutes += Math.floor(totalSongSeconds / 60);
+totalSongSeconds = totalSongSeconds % 60;
+console.log(totalSongMinutes + ' ' + totalSongSeconds);
+
+albumDuration.firstChild.nodeValue = 'Total length: ' + totalSongMinutes + ':' + totalSongSeconds;
+
 };
 
 window.onload = function() {

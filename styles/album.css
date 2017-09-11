@@ -39,6 +39,11 @@ body.album {
   font-size: 0.75rem;
 }
 
+.album-view-details .album-view-total-duration {
+  font-weight: 300;
+  font-size: 0.75rem;
+}
+
 .album-view-song-list {
   width: 90%;
   margin: 1.5rem auto;
