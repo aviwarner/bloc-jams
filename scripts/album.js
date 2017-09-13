@@ -76,23 +76,32 @@ var setCurrentAlbum = function(album) {
 
   albumSongList.innerHTML = '';
 
+// Calculate the total duration of all the tracks in the album
   var totalSongMinutes = 0;
   var totalSongSeconds = 0;
+  var splitMinutes = [];
+  var splitSeconds = [];
 
   for (var i = 0; i < album.songs.length; i++) {
     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
 
     var splitSongDuration = album.songs[i].duration.split(':');
-    totalSongMinutes += parseInt(splitSongDuration[0]);
-    totalSongSeconds += parseInt(splitSongDuration[1]);
-    console.log(splitSongDuration);
+    splitMinutes.push(parseInt(splitSongDuration[0]));
+    splitSeconds.push(parseInt(splitSongDuration[1]));
   }
 
-totalSongMinutes += Math.floor(totalSongSeconds / 60);
-totalSongSeconds = totalSongSeconds % 60;
-console.log(totalSongMinutes + ' ' + totalSongSeconds);
+  var totalSongMinutes = splitMinutes.reduce( function( total, amount) {
+    return total + amount;
+  });
 
-albumDuration.firstChild.nodeValue = 'Total length: ' + totalSongMinutes + ':' + totalSongSeconds;
+  var totalSongSeconds = splitSeconds.reduce( function( total, amount) {
+    return total + amount;
+  });
+
+  totalSongMinutes += Math.floor(totalSongSeconds / 60);
+  totalSongSeconds = totalSongSeconds % 60;
+
+  albumDuration.firstChild.nodeValue = 'Total length: ' + totalSongMinutes + ':' + totalSongSeconds;
 
 };
 
@@ -103,16 +112,16 @@ window.onload = function() {
 
   albumImageTwo.addEventListener('click',nextAlbum);
 
-  var i = 0;
+  var albumNumber = 0;
 
   function nextAlbum() {
     var albumList = [albumPinback, albumPicasso, albumMarconi];
-    if (i === albumList.length - 1) {
+    if (albumNumber === albumList.length - 1) {
       setCurrentAlbum(albumList[0]);
-      i = 0;
+      albumNumber = 0;
     } else {
-      i++;
-      setCurrentAlbum(albumList[i]);
+      albumNumber++;
+      setCurrentAlbum(albumList[albumNumber]);
     }
   };
 
