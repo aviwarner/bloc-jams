@@ -87,6 +87,7 @@ var findParentByClassName = function(element, targetClass) {
     var currentParent = element.parentElement;
       while (currentParent.className !== targetClass && currentParent.className !== null) {
         currentParent = currentParent.parentElement;
+        console.log("No parent found with that class name");
       }
     return currentParent;
   }
@@ -153,8 +154,6 @@ window.onload = function() {
     songRows[i].addEventListener('mouseleave', function(event) {
       var songItem = getSongItem(event.target);
       var songItemNumber = songItem.getAttribute('data-song-number');
-      console.log(songItemNumber);
-      console.log(currentlyPlayingSong);
       if (songItemNumber !== currentlyPlayingSong) {
         songItem.innerHTML = songItemNumber;
       }
