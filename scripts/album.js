@@ -81,7 +81,9 @@ var setCurrentAlbum = function(album) {
 };
 
 var findParentByClassName = function(element, targetClass) {
-  if (element) {
+  if (element.parentElement === null) {
+    console.log("No parent found");
+  } else if (element) {
     var currentParent = element.parentElement;
       while (currentParent.className !== targetClass && currentParent.className !== null) {
         currentParent = currentParent.parentElement;
@@ -95,48 +97,35 @@ var getSongItem = function(element) {
     case 'album-song-button':
     case 'ion-play':
     case 'ion-pause':
-      return findParentByClassName(element,'song-item-number'); // why are breaks not necessary?
+      return findParentByClassName(element,'song-item-number'); // why are breaks not necessary? IF you click on an element, and if that element is of the class (album-song-button, ion-pause, or ion-play), then SELECT the song-item-number
     case 'album-view-song-item':
-      return element.querySelector('.song-item-number');
+      return element.querySelector('.song-item-number'); // if you click on the row of a song (but not a specific child element), select the song-item-number which is a specific child of that element
     case 'song-item-title':
     case 'song-item-duration':
-      return findParentByClassName(element, 'album-view-song-item').querySelector('song-item-number'); //if findParentByClassName is meant to continue moving up parent elements... shouldn't clicking any element on that song item be able to return the appropriate song-item-number?
-    case 'song-item-number':
+      return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number'); // If you click on the title or duration of the song, select the parent (album-view-song-item) THEN move down to the song-item-number.
+    case 'song-item-number': // If you click on the song-item-number, congrats! you've done it.
       return element;
     default:
       return;
   }
 };
 
-var clickHandler = function(targetElement) {
-  var songItem = getSongItem(targetElement);
+var clickHandler = function(targetElement) { // later we setup a click listener (line 162), this is the function called when you click
+  var songItem = getSongItem(targetElement); // songItem is now defined as the song-item-number on the line you clicked
 
-  if (currentlyPlayingSong === null) {  // if no song is playing yet, change that song number to 'pause'
-    songItem.innerHTML = pauseButtonTemplate;
-    currentlyPlayingSong = songItem.getAttribute('data-song-number');
+  if (currentlyPlayingSong === null) {
+    songItem.innerHTML = pauseButtonTemplate; // if no song is playing yet, change that song number to 'pause'
+    currentlyPlayingSong = songItem.getAttribute('data-song-number'); // since this is 'playing', define the var currentlyPlayingSong as this song number
   } else if (currentlyPlayingSong === songItem.getAttribute('data-song-number')) { // if this song WAS playing, change the song number back to the number (when you hover away)
-    songItem.innerHTML = playButtonTemplate;
-    currentlyPlayingSong = null;
-  } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) { // if a different song was playing
-    var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]');
-    currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
-    songItem.innerHTML = pauseButtonTemplate;
-    currentlyPlayingSong = songItem.getAttribute('data-song-number');
+    songItem.innerHTML = playButtonTemplate; // change the icon back to play from pauseButtonTemplate
+    currentlyPlayingSong = null; // clear out the currentlyPlayingSong
+  } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) { // if a DIFFERENT song was playing
+    var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]'); // define a new variable that's the number of the song that WAS playing
+    currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number'); // change that songs button from pause back to the number
+    songItem.innerHTML = pauseButtonTemplate; // change THIS song's button to pause
+    currentlyPlayingSong = songItem.getAttribute('data-song-number'); // set the currentlyPlayingSong to the song you've clicked
   }
 };
-
-// function findParentByClassName(element, targetNode) {
-//   if (element.parentElement.classList[0] == targetNode) {
-//       console.log('match!')
-//       return element.parentElement;
-//     } else if (element.parentElement.tagName !== 'BODY') {
-//       element = element.parentElement;
-//       findParentByClassName(element, targetNode)
-//     } else {
-//       console.log('no match');
-//       return false;
-//     }
-// }
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
@@ -149,15 +138,15 @@ var currentlyPlayingSong = null;
 window.onload = function() {
   setCurrentAlbum(albumPinback);
 
-  songListContainer.addEventListener('mouseover', function(event) {
-    if (event.target.parentElement.className === 'album-view-song-item') {
-      var songItem = getSongItem(event.target);
-      if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
-        songItem.innerHTML = playButtonTemplate;
+  songListContainer.addEventListener('mouseover', function(event) { // a new mouseover listener for the song list
+    if (event.target.parentElement.className === 'album-view-song-item') { // if you've hovered over something whose parent is the song row
+      var songItem = getSongItem(event.target);  // define songItem as the current song-item-number
+
+      if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) { // if the current data-song-number IS NOT currentlyPlayingSong
+        songItem.innerHTML = playButtonTemplate; // change the song-item-number to the playButtonTemplate
       }
     }
   });
-
 
   for (var i = 0; i < songRows.length; i++) {
 
