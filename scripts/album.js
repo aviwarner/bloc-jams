@@ -72,23 +72,19 @@ var trackIndex = function(album, song) {
   return album.songs.indexOf(song);
 };
 
-var nextSong = function() {
+var changeSong = function(direction) {
   var wasPlayingNumber = trackIndex(currentAlbum, currentSongFromAlbum);
-  var nowPlayingNumber = wasPlayingNumber + 1;
-  getSongNumberCell(nowPlayingNumber).text(nowPlayingNumber);
-  if (nowPlayingNumber === currentAlbum.songs.length) {
-    nowPlayingNumber = 0;
-  }
-  getSongNumberCell(nowPlayingNumber + 1).html(pauseButtonTemplate);
-  setSong(nowPlayingNumber + 1);
-};
-
-var previousSong = function() {
-  var wasPlayingNumber = trackIndex(currentAlbum, currentSongFromAlbum);
-  var nowPlayingNumber = wasPlayingNumber - 1;
-  getSongNumberCell(wasPlayingNumber + 1).text(wasPlayingNumber + 1);
-  if (wasPlayingNumber === 0) {
-    nowPlayingNumber = currentAlbum.songs.length - 1;
+  var nowPlayingNumber = wasPlayingNumber + direction;
+  if (direction === 1) {
+    getSongNumberCell(nowPlayingNumber).text(nowPlayingNumber);
+    if (nowPlayingNumber === currentAlbum.songs.length) {
+      nowPlayingNumber = 0;
+    }
+  } else {
+    getSongNumberCell(wasPlayingNumber + 1).text(wasPlayingNumber + 1);
+    if (wasPlayingNumber === 0) {
+      nowPlayingNumber = currentAlbum.songs.length - 1;
+    }
   }
   getSongNumberCell(nowPlayingNumber + 1).html(pauseButtonTemplate);
   setSong(nowPlayingNumber + 1);
@@ -130,8 +126,12 @@ var currentlySongFromAlbum = null;
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
-$(document).ready(function(){
-  setCurrentAlbum(albumPinback);
-  $previousButton.click(previousSong);
-  $nextButton.click(nextSong);
+$( document ).ready(function() {
+    setCurrentAlbum(albumPinback);
+    $previousButton.click(function() {
+      changeSong(-1);
+    });
+    $nextButton.click(function() {
+      changeSong(1);
+    });
 });
