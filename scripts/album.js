@@ -13,21 +13,16 @@ var createSongRow = function(songNumber, songName, songLength) {
     var songNumber = parseInt($(this).attr('data-song-number'));
     if (currentlyPlayingSongNumber === null) {
       $(this).html(pauseButtonTemplate);
-      currentlyPlayingSongNumber = songNumber;
-      currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-      updatePlayerBarSong(currentSongFromAlbum);
+      setSong(songNumber);
     } else if (currentlyPlayingSongNumber === songNumber) {
       $(this).html(playButtonTemplate);
-      currentlyPlayingSongNumber = null;
-      currentSongFromAlbum = null;
+      setSong(null);
       $('.main-controls .play-pause').html(playerBarPlayButton);
     } else {
-      var currentlyPlayingSongElement = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+      var currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
       currentlyPlayingSongElement.html(currentlyPlayingSongNumber);
       $(this).html(pauseButtonTemplate);
-      currentlyPlayingSongNumber = songNumber;
-      currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-      updatePlayerBarSong(currentSongFromAlbum);
+      setSong(songNumber);
     }
   };
 
@@ -45,7 +40,6 @@ var createSongRow = function(songNumber, songName, songLength) {
     if (songNumber !== currentlyPlayingSongNumber) {
       songNumberElement.html(songNumber);
     }
-    console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
   };
 
   $row.find('.song-item-number').click(clickHandler);
@@ -81,26 +75,23 @@ var trackIndex = function(album, song) {
 var nextSong = function() {
   var wasPlayingNumber = trackIndex(currentAlbum, currentSongFromAlbum);
   var nowPlayingNumber = wasPlayingNumber + 1;
-  $('.song-item-number[data-song-number="' + nowPlayingNumber + '"]').text(nowPlayingNumber);
+  getSongNumberCell(nowPlayingNumber).text(nowPlayingNumber);
   if (nowPlayingNumber === currentAlbum.songs.length) {
     nowPlayingNumber = 0;
   }
-  $('.song-item-number[data-song-number="' + (nowPlayingNumber + 1) + '"]').html(pauseButtonTemplate);
-  currentlyPlayingSongNumber = nowPlayingNumber + 1;
-  currentSongFromAlbum = currentAlbum.songs[nowPlayingNumber];
-  updatePlayerBarSong(currentSongFromAlbum);
+  getSongNumberCell(nowPlayingNumber + 1).html(pauseButtonTemplate);
+  setSong(nowPlayingNumber + 1);
 };
 
 var previousSong = function() {
   var wasPlayingNumber = trackIndex(currentAlbum, currentSongFromAlbum);
   var nowPlayingNumber = wasPlayingNumber - 1;
-  $('.song-item-number[data-song-number="' + (wasPlayingNumber + 1) + '"]').text(wasPlayingNumber + 1);
+  getSongNumberCell(wasPlayingNumber + 1).text(wasPlayingNumber + 1);
   if (wasPlayingNumber === 0) {
     nowPlayingNumber = currentAlbum.songs.length - 1;
   }
-  $('.song-item-number[data-song-number="' + (nowPlayingNumber + 1) + '"]').html(pauseButtonTemplate);
-  currentSongFromAlbum = currentAlbum.songs[nowPlayingNumber];
-  updatePlayerBarSong(currentSongFromAlbum);
+  getSongNumberCell(nowPlayingNumber + 1).html(pauseButtonTemplate);
+  setSong(nowPlayingNumber + 1);
 };
 
 var updatePlayerBarSong = function(song) {
@@ -110,6 +101,22 @@ var updatePlayerBarSong = function(song) {
     $('.total-time').text(song.duration);
     $('.current-time').text('0:00');
     $('.main-controls .play-pause').html(playerBarPauseButtom);
+};
+
+var setSong = function(songNumber) {
+  if (songNumber === null) {
+    currentlyPlayingSongNumber = '';
+    currentSongFromAlbum = '';
+  } else {
+    currentlyPlayingSongNumber = songNumber;
+    currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+  }
+  updatePlayerBarSong(currentSongFromAlbum);
+  console.log('setSong current number is: ' + currentlyPlayingSongNumber + ' and current song is ' + currentSongFromAlbum.title);
+};
+
+var getSongNumberCell = function(number) {
+  return $('.song-item-number[data-song-number="' + number + '"]');
 };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
