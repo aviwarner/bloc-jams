@@ -34,25 +34,15 @@ var albumPinback = {
   year: '1999',
   albumArtUrl: 'assets/images/album_covers/pinbackcover.png',
   songs: [
-    { title: 'Tripoli', duration: 271, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/01+-+Tripoli' },
-    { title: 'Hurley', duration: 236, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/02+-+Hurley' },
-    { title: 'Charborg', duration: 208, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/03+-+Charborg' },
-    { title: 'Chaos Engine', duration: 219, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/04+-+Chaos+Engine' },
-    { title: 'Shag', duration: 186, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/05+-+Shag'},
-    { title: 'Loro', duration: 214, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/06+-+Loro' },
-    { title: 'Crutch', duration: 272, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/07+-+Crutch' },
-    { title: 'Rousseau', duration: 309, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/08+-+Rousseau' },
-    { title: 'Lyon', duration: 319, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/09+-+Lyon' },
-    { title: 'Montaigne', duration: 338, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/10+-+Montaigne' }
-      // { title: 'Tripoli', duration: '4:30', audioUrl: 'assets/music/01 - Tripoli' },
-    // { title: 'Hurley', duration: '3:55', audioUrl: 'assets/music/02 - Hurley' },
-    // { title: 'Charborg', duration: '3:28', audioUrl: 'assets/music/03 - Charborg' },
-    // { title: 'Chaos Engine', duration: '3:38', audioUrl: 'assets/music/04 - Chaos Engine' },
-    // { title: 'Shag', duration: '3:05', audioUrl: 'assets/music/05 - Shag'},
-    // { title: 'Loro', duration: '3:33', audioUrl: 'assets/music/06 - Loro' },
-    // { title: 'Crutch', duration: '4:31', audioUrl: 'assets/music/07 - Crutch' },
-    // { title: 'Rousseau', duration: '5:08', audioUrl: 'assets/music/08 - Rousseau' },
-    // { title: 'Lyon', duration: '5:18', audioUrl: 'assets/music/09 - Lyon' },
-    // { title: 'Montaigne', duration: '5:38', audioUrl: 'assets/music/10 - Montaigne' }
+    { title: 'Tripoli', duration: 270.92, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/01+-+Tripoli' },
+    { title: 'Hurley', duration: 235.81, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/02+-+Hurley' },
+    { title: 'Charborg', duration: 208.46, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/03+-+Charborg' },
+    { title: 'Chaos Engine', duration: 218.51, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/04+-+Chaos+Engine' },
+    { title: 'Shag', duration: 185.89, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/05+-+Shag'},
+    { title: 'Loro', duration: 213.76, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/06+-+Loro' },
+    { title: 'Crutch', duration: 271.07, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/07+-+Crutch' },
+    { title: 'Rousseau', duration: 308.69, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/08+-+Rousseau' },
+    { title: 'Lyon', duration: 318.54, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/09+-+Lyon' },
+    { title: 'Montaigne', duration: 337.97, audioUrl: 'https://s3.amazonaws.com/aws-website-portfolio-gvhf1/Pinback/10+-+Montaigne' }
   ]
 };
