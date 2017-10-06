@@ -12,6 +12,7 @@ var createSongRow = function(songNumber, songName, songLength) {
   var clickHandler = function(songNumber) {
     var songNumber = parseInt($(this).attr('data-song-number'));
     if (currentlyPlayingSongNumber === null) {
+      $('.player-bar').css('bottom','0');
       setSong(songNumber);
       currentSoundFile.play();
       updateSeekBarWhileSongPlays();

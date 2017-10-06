@@ -1,11 +1,12 @@
 .player-bar {
   position: fixed;
-  bottom: 0;
+  bottom: -200px;
   left: 0;
   right: 0;
   height: 200px;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
+  transition: bottom 0.5s, transform 0.5s;
 }
 
 .player-bar a {
@@ -153,6 +154,7 @@
   .player-bar {
     padding: 1rem;
     background-color: rgba(0, 0, 0, 0.6);
+    height: 150px;
   }
 
   .player-bar .main-controls,
